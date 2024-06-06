@@ -14,6 +14,148 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+GenreList _$GenreListFromJson(Map<String, dynamic> json) {
+  return _GenreList.fromJson(json);
+}
+
+/// @nodoc
+mixin _$GenreList {
+  List<Genre> get genres => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $GenreListCopyWith<GenreList> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GenreListCopyWith<$Res> {
+  factory $GenreListCopyWith(GenreList value, $Res Function(GenreList) then) =
+      _$GenreListCopyWithImpl<$Res, GenreList>;
+  @useResult
+  $Res call({List<Genre> genres});
+}
+
+/// @nodoc
+class _$GenreListCopyWithImpl<$Res, $Val extends GenreList>
+    implements $GenreListCopyWith<$Res> {
+  _$GenreListCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? genres = null,
+  }) {
+    return _then(_value.copyWith(
+      genres: null == genres
+          ? _value.genres
+          : genres // ignore: cast_nullable_to_non_nullable
+              as List<Genre>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$GenreListImplCopyWith<$Res>
+    implements $GenreListCopyWith<$Res> {
+  factory _$$GenreListImplCopyWith(
+          _$GenreListImpl value, $Res Function(_$GenreListImpl) then) =
+      __$$GenreListImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Genre> genres});
+}
+
+/// @nodoc
+class __$$GenreListImplCopyWithImpl<$Res>
+    extends _$GenreListCopyWithImpl<$Res, _$GenreListImpl>
+    implements _$$GenreListImplCopyWith<$Res> {
+  __$$GenreListImplCopyWithImpl(
+      _$GenreListImpl _value, $Res Function(_$GenreListImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? genres = null,
+  }) {
+    return _then(_$GenreListImpl(
+      genres: null == genres
+          ? _value._genres
+          : genres // ignore: cast_nullable_to_non_nullable
+              as List<Genre>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$GenreListImpl implements _GenreList {
+  const _$GenreListImpl({required final List<Genre> genres}) : _genres = genres;
+
+  factory _$GenreListImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GenreListImplFromJson(json);
+
+  final List<Genre> _genres;
+  @override
+  List<Genre> get genres {
+    if (_genres is EqualUnmodifiableListView) return _genres;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_genres);
+  }
+
+  @override
+  String toString() {
+    return 'GenreList(genres: $genres)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GenreListImpl &&
+            const DeepCollectionEquality().equals(other._genres, _genres));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_genres));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GenreListImplCopyWith<_$GenreListImpl> get copyWith =>
+      __$$GenreListImplCopyWithImpl<_$GenreListImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$GenreListImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _GenreList implements GenreList {
+  const factory _GenreList({required final List<Genre> genres}) =
+      _$GenreListImpl;
+
+  factory _GenreList.fromJson(Map<String, dynamic> json) =
+      _$GenreListImpl.fromJson;
+
+  @override
+  List<Genre> get genres;
+  @override
+  @JsonKey(ignore: true)
+  _$$GenreListImplCopyWith<_$GenreListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Genre _$GenreFromJson(Map<String, dynamic> json) {
   return _Genre.fromJson(json);
 }

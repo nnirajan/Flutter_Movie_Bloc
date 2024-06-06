@@ -39,8 +39,11 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<List<Genre>> getGenres() {
-    // TODO: implement getGenres
-    throw UnimplementedError();
+  Future<List<Genre>> getGenres() async {
+    final response = await _networkClient.getRequest(path: "genre/movie/list");
+
+    final genreResponse = GenreList.fromJson(response.data);
+
+    return genreResponse.genres;
   }
 }

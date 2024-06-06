@@ -1,8 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 class RatingView extends StatelessWidget {
+  final double rating;
+
   const RatingView({
+    required this.rating,
     super.key,
   });
 
@@ -18,7 +20,7 @@ class RatingView extends StatelessWidget {
         const SizedBox(width: 2),
         Text(
           maxLines: 1,
-          "9.1/10 IMDb",
+          "$rating / 10 IMDb",
           style: const TextStyle(
             fontWeight: FontWeight.normal,
             color: Colors.black,

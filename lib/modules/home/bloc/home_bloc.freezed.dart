@@ -19,6 +19,7 @@ mixin _$HomeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchInitial,
+    required TResult Function() fetchGenres,
     required TResult Function() fetchNowShowings,
     required TResult Function() fetchPopularMovies,
   }) =>
@@ -26,6 +27,7 @@ mixin _$HomeEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchInitial,
+    TResult? Function()? fetchGenres,
     TResult? Function()? fetchNowShowings,
     TResult? Function()? fetchPopularMovies,
   }) =>
@@ -33,6 +35,7 @@ mixin _$HomeEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchInitial,
+    TResult Function()? fetchGenres,
     TResult Function()? fetchNowShowings,
     TResult Function()? fetchPopularMovies,
     required TResult orElse(),
@@ -41,6 +44,7 @@ mixin _$HomeEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchInitial value) fetchInitial,
+    required TResult Function(_FetchGenres value) fetchGenres,
     required TResult Function(_FetchNowShowings value) fetchNowShowings,
     required TResult Function(_FetchPopularMovies value) fetchPopularMovies,
   }) =>
@@ -48,6 +52,7 @@ mixin _$HomeEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FetchInitial value)? fetchInitial,
+    TResult? Function(_FetchGenres value)? fetchGenres,
     TResult? Function(_FetchNowShowings value)? fetchNowShowings,
     TResult? Function(_FetchPopularMovies value)? fetchPopularMovies,
   }) =>
@@ -55,6 +60,7 @@ mixin _$HomeEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchInitial value)? fetchInitial,
+    TResult Function(_FetchGenres value)? fetchGenres,
     TResult Function(_FetchNowShowings value)? fetchNowShowings,
     TResult Function(_FetchPopularMovies value)? fetchPopularMovies,
     required TResult orElse(),
@@ -118,6 +124,7 @@ class _$FetchInitialImpl implements _FetchInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchInitial,
+    required TResult Function() fetchGenres,
     required TResult Function() fetchNowShowings,
     required TResult Function() fetchPopularMovies,
   }) {
@@ -128,6 +135,7 @@ class _$FetchInitialImpl implements _FetchInitial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchInitial,
+    TResult? Function()? fetchGenres,
     TResult? Function()? fetchNowShowings,
     TResult? Function()? fetchPopularMovies,
   }) {
@@ -138,6 +146,7 @@ class _$FetchInitialImpl implements _FetchInitial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchInitial,
+    TResult Function()? fetchGenres,
     TResult Function()? fetchNowShowings,
     TResult Function()? fetchPopularMovies,
     required TResult orElse(),
@@ -152,6 +161,7 @@ class _$FetchInitialImpl implements _FetchInitial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchInitial value) fetchInitial,
+    required TResult Function(_FetchGenres value) fetchGenres,
     required TResult Function(_FetchNowShowings value) fetchNowShowings,
     required TResult Function(_FetchPopularMovies value) fetchPopularMovies,
   }) {
@@ -162,6 +172,7 @@ class _$FetchInitialImpl implements _FetchInitial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FetchInitial value)? fetchInitial,
+    TResult? Function(_FetchGenres value)? fetchGenres,
     TResult? Function(_FetchNowShowings value)? fetchNowShowings,
     TResult? Function(_FetchPopularMovies value)? fetchPopularMovies,
   }) {
@@ -172,6 +183,7 @@ class _$FetchInitialImpl implements _FetchInitial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchInitial value)? fetchInitial,
+    TResult Function(_FetchGenres value)? fetchGenres,
     TResult Function(_FetchNowShowings value)? fetchNowShowings,
     TResult Function(_FetchPopularMovies value)? fetchPopularMovies,
     required TResult orElse(),
@@ -185,6 +197,120 @@ class _$FetchInitialImpl implements _FetchInitial {
 
 abstract class _FetchInitial implements HomeEvent {
   const factory _FetchInitial() = _$FetchInitialImpl;
+}
+
+/// @nodoc
+abstract class _$$FetchGenresImplCopyWith<$Res> {
+  factory _$$FetchGenresImplCopyWith(
+          _$FetchGenresImpl value, $Res Function(_$FetchGenresImpl) then) =
+      __$$FetchGenresImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$FetchGenresImplCopyWithImpl<$Res>
+    extends _$HomeEventCopyWithImpl<$Res, _$FetchGenresImpl>
+    implements _$$FetchGenresImplCopyWith<$Res> {
+  __$$FetchGenresImplCopyWithImpl(
+      _$FetchGenresImpl _value, $Res Function(_$FetchGenresImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$FetchGenresImpl implements _FetchGenres {
+  const _$FetchGenresImpl();
+
+  @override
+  String toString() {
+    return 'HomeEvent.fetchGenres()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$FetchGenresImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() fetchInitial,
+    required TResult Function() fetchGenres,
+    required TResult Function() fetchNowShowings,
+    required TResult Function() fetchPopularMovies,
+  }) {
+    return fetchGenres();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? fetchInitial,
+    TResult? Function()? fetchGenres,
+    TResult? Function()? fetchNowShowings,
+    TResult? Function()? fetchPopularMovies,
+  }) {
+    return fetchGenres?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? fetchInitial,
+    TResult Function()? fetchGenres,
+    TResult Function()? fetchNowShowings,
+    TResult Function()? fetchPopularMovies,
+    required TResult orElse(),
+  }) {
+    if (fetchGenres != null) {
+      return fetchGenres();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FetchInitial value) fetchInitial,
+    required TResult Function(_FetchGenres value) fetchGenres,
+    required TResult Function(_FetchNowShowings value) fetchNowShowings,
+    required TResult Function(_FetchPopularMovies value) fetchPopularMovies,
+  }) {
+    return fetchGenres(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FetchInitial value)? fetchInitial,
+    TResult? Function(_FetchGenres value)? fetchGenres,
+    TResult? Function(_FetchNowShowings value)? fetchNowShowings,
+    TResult? Function(_FetchPopularMovies value)? fetchPopularMovies,
+  }) {
+    return fetchGenres?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FetchInitial value)? fetchInitial,
+    TResult Function(_FetchGenres value)? fetchGenres,
+    TResult Function(_FetchNowShowings value)? fetchNowShowings,
+    TResult Function(_FetchPopularMovies value)? fetchPopularMovies,
+    required TResult orElse(),
+  }) {
+    if (fetchGenres != null) {
+      return fetchGenres(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FetchGenres implements HomeEvent {
+  const factory _FetchGenres() = _$FetchGenresImpl;
 }
 
 /// @nodoc
@@ -226,6 +352,7 @@ class _$FetchNowShowingsImpl implements _FetchNowShowings {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchInitial,
+    required TResult Function() fetchGenres,
     required TResult Function() fetchNowShowings,
     required TResult Function() fetchPopularMovies,
   }) {
@@ -236,6 +363,7 @@ class _$FetchNowShowingsImpl implements _FetchNowShowings {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchInitial,
+    TResult? Function()? fetchGenres,
     TResult? Function()? fetchNowShowings,
     TResult? Function()? fetchPopularMovies,
   }) {
@@ -246,6 +374,7 @@ class _$FetchNowShowingsImpl implements _FetchNowShowings {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchInitial,
+    TResult Function()? fetchGenres,
     TResult Function()? fetchNowShowings,
     TResult Function()? fetchPopularMovies,
     required TResult orElse(),
@@ -260,6 +389,7 @@ class _$FetchNowShowingsImpl implements _FetchNowShowings {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchInitial value) fetchInitial,
+    required TResult Function(_FetchGenres value) fetchGenres,
     required TResult Function(_FetchNowShowings value) fetchNowShowings,
     required TResult Function(_FetchPopularMovies value) fetchPopularMovies,
   }) {
@@ -270,6 +400,7 @@ class _$FetchNowShowingsImpl implements _FetchNowShowings {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FetchInitial value)? fetchInitial,
+    TResult? Function(_FetchGenres value)? fetchGenres,
     TResult? Function(_FetchNowShowings value)? fetchNowShowings,
     TResult? Function(_FetchPopularMovies value)? fetchPopularMovies,
   }) {
@@ -280,6 +411,7 @@ class _$FetchNowShowingsImpl implements _FetchNowShowings {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchInitial value)? fetchInitial,
+    TResult Function(_FetchGenres value)? fetchGenres,
     TResult Function(_FetchNowShowings value)? fetchNowShowings,
     TResult Function(_FetchPopularMovies value)? fetchPopularMovies,
     required TResult orElse(),
@@ -334,6 +466,7 @@ class _$FetchPopularMoviesImpl implements _FetchPopularMovies {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchInitial,
+    required TResult Function() fetchGenres,
     required TResult Function() fetchNowShowings,
     required TResult Function() fetchPopularMovies,
   }) {
@@ -344,6 +477,7 @@ class _$FetchPopularMoviesImpl implements _FetchPopularMovies {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchInitial,
+    TResult? Function()? fetchGenres,
     TResult? Function()? fetchNowShowings,
     TResult? Function()? fetchPopularMovies,
   }) {
@@ -354,6 +488,7 @@ class _$FetchPopularMoviesImpl implements _FetchPopularMovies {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchInitial,
+    TResult Function()? fetchGenres,
     TResult Function()? fetchNowShowings,
     TResult Function()? fetchPopularMovies,
     required TResult orElse(),
@@ -368,6 +503,7 @@ class _$FetchPopularMoviesImpl implements _FetchPopularMovies {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchInitial value) fetchInitial,
+    required TResult Function(_FetchGenres value) fetchGenres,
     required TResult Function(_FetchNowShowings value) fetchNowShowings,
     required TResult Function(_FetchPopularMovies value) fetchPopularMovies,
   }) {
@@ -378,6 +514,7 @@ class _$FetchPopularMoviesImpl implements _FetchPopularMovies {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FetchInitial value)? fetchInitial,
+    TResult? Function(_FetchGenres value)? fetchGenres,
     TResult? Function(_FetchNowShowings value)? fetchNowShowings,
     TResult? Function(_FetchPopularMovies value)? fetchPopularMovies,
   }) {
@@ -388,6 +525,7 @@ class _$FetchPopularMoviesImpl implements _FetchPopularMovies {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchInitial value)? fetchInitial,
+    TResult Function(_FetchGenres value)? fetchGenres,
     TResult Function(_FetchNowShowings value)? fetchNowShowings,
     TResult Function(_FetchPopularMovies value)? fetchPopularMovies,
     required TResult orElse(),

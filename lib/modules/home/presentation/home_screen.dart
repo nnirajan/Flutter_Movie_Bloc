@@ -8,7 +8,7 @@ import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeBloc _bloc = HomeBloc(movieRepository: MovieRepositoryImpl())
-    ..add(const HomeEvent.fetchInitial());
+    ..fetchInitial();
 
   HomeScreen({super.key});
 
@@ -19,7 +19,27 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text("The Movie App"),
       ),
-      body: BlocBuilder<HomeBloc, HomeState>(
+      body: BlocConsumer<HomeBloc, HomeState>(
+        listener: (context, state) {
+          if (state.errorMessage != null) {
+            final AlertDialog alert = AlertDialog(
+              title: const Text("Error"),
+              content: Text(state.errorMessage!),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Ok"),
+                )
+              ],
+            );
+
+            showDialog(context: context, builder: (context) => alert);
+
+            // return context.showDialog();
+          }
+        },
         bloc: _bloc,
         builder: (context, state) {
           if (state.isLoading) {
@@ -45,27 +65,37 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 284,
                     child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: state.nowShowings.length,
-                      itemBuilder: (context, index) => NowShowingColumn(
-                        onTapped: () {},
-                      ),
-                    ),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.nowShowings.length,
+                        itemBuilder: (context, index) {
+                          final nowShowing = state.nowShowings[index];
+
+                          return NowShowingColumn(
+                            nowShowing: nowShowing,
+                            onTapped: () {},
+                          );
+                        }),
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
                     child: Text(
                       "Popular",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: state.popularMovies.length,
-                    itemBuilder: (context, index) => const PopularRow(),
+                    itemBuilder: (context, index) {
+                      final popularMovie = state.popularMovies[index];
+
+                      return PopularRow(popularMovie: popularMovie);
+                    },
                   ),
                 ],
               ),

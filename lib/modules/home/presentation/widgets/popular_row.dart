@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:movie_bloc/models/movie.dart';
 
 import 'package:movie_bloc/modules/home/presentation/widgets/genere_widget.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/rating_view.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/timer_view.dart';
 
 class PopularRow extends StatelessWidget {
+  final Movie popularMovie;
+
   const PopularRow({
+    required this.popularMovie,
     super.key,
   });
 
@@ -23,7 +27,6 @@ class PopularRow extends StatelessWidget {
               print("tapped");
             },
             child: Row(
-              
               children: [
                 Container(
                   decoration: BoxDecoration(
@@ -33,31 +36,31 @@ class PopularRow extends StatelessWidget {
                   width: 86,
                 ),
                 const SizedBox(width: 6),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       maxLines: 2,
-                      "Spiderman: No Way Home",
-                      style: TextStyle(
+                      popularMovie.title,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    RatingView(),
-                    SizedBox(height: 8),
-                    Row(
+                    const SizedBox(height: 8),
+                    RatingView(rating: popularMovie.voteAverage),
+                    const SizedBox(height: 8),
+                    const Row(
                       children: [
                         GenereWidget(),
                         GenereWidget(),
                         GenereWidget(),
                       ],
                     ),
-                    SizedBox(height: 8),
-                    TimerView(),
+                    const SizedBox(height: 8),
+                    const TimerView(),
                   ],
                 ),
               ],
