@@ -7,10 +7,10 @@ import 'package:movie_bloc/modules/home/presentation/widgets/popular_row.dart';
 import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
 
 class HomeScreen extends StatelessWidget {
-  final HomeBloc _bloc = HomeBloc(movieRepository: MovieRepositoryImpl())
-    ..fetchInitial();
+  // final HomeBloc _bloc = HomeBloc(movieRepository: MovieRepositoryImpl())
+  //   ..fetchInitial();
 
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
             showDialog(context: context, builder: (context) => alert);
           }
         },
-        bloc: _bloc,
+        // bloc: _bloc,
         builder: (context, state) {
           if (state.isLoading) {
             return const Center(
@@ -47,7 +47,8 @@ class HomeScreen extends StatelessWidget {
           } else {
             return RefreshIndicator(
               onRefresh: () async {
-                _bloc.fetchInitial();
+                // _bloc.fetchInitial();
+                context.read<HomeBloc>().fetchInitial();
               },
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -104,10 +105,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final popularMovie = state.popularMovies[index];
 
-                          return PopularRow(
-                            popularMovie: popularMovie,
-                            genres: state.genres,
-                          );
+                          return PopularRow(popularMovie: popularMovie);
                         },
                       ),
                     ],
