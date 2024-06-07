@@ -36,8 +36,6 @@ class HomeScreen extends StatelessWidget {
             );
 
             showDialog(context: context, builder: (context) => alert);
-
-            // return context.showDialog();
           }
         },
         bloc: _bloc,
@@ -47,62 +45,113 @@ class HomeScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            return SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
-                    child: Text(
-                      "Now Showing",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+            return RefreshIndicator(
+              onRefresh: () async {
+                _bloc.fetchInitial();
+              },
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (state.nowShowings.isNotEmpty) ...[
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                        child: Text(
+                          "Now Showing",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 284,
-                    child: ListView.builder(
+                      SizedBox(
+                        height: 284,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.nowShowings.length,
+                          itemBuilder: (context, index) {
+                            final nowShowing = state.nowShowings[index];
+
+                            return NowShowingColumn(
+                              nowShowing: nowShowing,
+                              onTapped: () {},
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+
+                    // We can also implement if condition as follows
+                    // if (state.nowShowings.isNotEmpty) _getNowShowing(state),
+
+                    if (state.popularMovies.isNotEmpty) ...[
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                        child: Text(
+                          "Popular",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.nowShowings.length,
+                        itemCount: state.popularMovies.length,
                         itemBuilder: (context, index) {
-                          final nowShowing = state.nowShowings[index];
+                          final popularMovie = state.popularMovies[index];
 
-                          return NowShowingColumn(
-                            nowShowing: nowShowing,
-                            onTapped: () {},
+                          return PopularRow(
+                            popularMovie: popularMovie,
+                            genres: state.genres,
                           );
-                        }),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
-                    child: Text(
-                      "Popular",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                        },
                       ),
-                    ),
-                  ),
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: state.popularMovies.length,
-                    itemBuilder: (context, index) {
-                      final popularMovie = state.popularMovies[index];
-
-                      return PopularRow(popularMovie: popularMovie);
-                    },
-                  ),
-                ],
+                    ],
+                  ],
+                ),
               ),
             );
           }
         },
       ),
+    );
+  }
+
+  Widget _getNowShowing(HomeState state) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+          child: Text(
+            "Now Showing",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 284,
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: state.nowShowings.length,
+            itemBuilder: (context, index) {
+              final nowShowing = state.nowShowings[index];
+
+              return NowShowingColumn(
+                nowShowing: nowShowing,
+                onTapped: () {},
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

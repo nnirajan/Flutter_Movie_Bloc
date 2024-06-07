@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movie_bloc/models/genre.dart';
 
-class GenereWidget extends StatelessWidget {
-  const GenereWidget({
+class GenreWidget extends StatelessWidget {
+  final Genre genre;
+
+  const GenreWidget({
+    required this.genre,
     super.key,
   });
 
@@ -18,10 +22,10 @@ class GenereWidget extends StatelessWidget {
         // color: Colors.blueAccent,
         alignment: Alignment.center,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            "adventure",
-            style: TextStyle(
+            genre.name,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 10,
             ),

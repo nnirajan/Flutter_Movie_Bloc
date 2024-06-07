@@ -81,10 +81,11 @@ class HomeBloc extends Cubit<HomeState> {
   Future<void> fetchInitial() async {
     emit(state.copyWith(isLoading: true));
 
+    final genres = await _fetchGenres();
+
     final responses = await Future.wait([
       _fetchNowShowings(),
-      _fetchPopularMovies()
-      // _movieRepository.getGenres(),
+      _fetchPopularMovies(),
     ]);
 
     final nowShowings = responses[0];
@@ -93,7 +94,7 @@ class HomeBloc extends Cubit<HomeState> {
 
     emit(state.copyWith(
       isLoading: false,
-      genres: [],
+      genres: genres,
       nowShowings: nowShowings,
       popularMovies: popularMovies,
     ));
@@ -116,6 +117,18 @@ class HomeBloc extends Cubit<HomeState> {
       var response = await _movieRepository.getPopularMovies(1);
 
       return response.results;
+    } catch (error) {
+      emit(state.copyWith(errorMessage: error.toString()));
+
+      return [];
+    }
+  }
+
+  Future<List<Genre>> _fetchGenres() async {
+    try {
+      var response = await _movieRepository.getGenres();
+
+      return response;
     } catch (error) {
       emit(state.copyWith(errorMessage: error.toString()));
 
