@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_bloc/modules/detail/detail_screen.dart';
 import 'package:movie_bloc/modules/home/bloc/home_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -77,7 +78,13 @@ class HomeScreen extends StatelessWidget {
 
                             return NowShowingColumn(
                               nowShowing: nowShowing,
-                              onTapped: () {},
+                              onTapped: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return DetailScreen(id: nowShowing.id);
+                                  },
+                                ));
+                              },
                             );
                           },
                         ),

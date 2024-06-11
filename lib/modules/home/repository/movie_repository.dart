@@ -1,3 +1,4 @@
+import 'package:movie_bloc/models/cast.dart';
 import 'package:movie_bloc/models/genre.dart';
 import 'package:movie_bloc/models/movie.dart';
 import 'package:movie_bloc/models/movie_list.dart';
@@ -11,6 +12,8 @@ abstract class MovieRepository {
   Future<MovieList> getPopularMovies(int page);
 
   Future<Movie> getMovieDetail(int id);
+
+  Future<List<Cast>> getMovieCasts(int id);
 
   Future<List<Genre>> getGenres();
 }

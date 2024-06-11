@@ -18,7 +18,7 @@ class App extends StatelessWidget {
       home: BlocProvider(
         create: (context) =>
             HomeBloc(movieRepository: MovieRepositoryImpl())..fetchInitial(),
-        child: HomeScreen(),
+        child: const HomeScreen(),
       ),
 
       // home: DetailScreen(),

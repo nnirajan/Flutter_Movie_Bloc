@@ -14,6 +14,7 @@ class Movie with _$Movie {
     required String title,
     required String overview,
     @JsonKey(name: 'poster_path') required String posterPath,
+    @JsonKey(name: 'backdrop_path') required String backdropPath,
     @JsonKey(name: 'vote_average') required double voteAverage,
     @JsonKey(name: 'genre_ids') List<int>? genreIds,
     List<Genre>? genres,

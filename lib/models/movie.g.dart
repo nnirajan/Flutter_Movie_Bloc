@@ -11,6 +11,7 @@ _$MovieImpl _$$MovieImplFromJson(Map<String, dynamic> json) => _$MovieImpl(
       title: json['title'] as String,
       overview: json['overview'] as String,
       posterPath: json['poster_path'] as String,
+      backdropPath: json['backdrop_path'] as String,
       voteAverage: (json['vote_average'] as num).toDouble(),
       genreIds: (json['genre_ids'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
@@ -27,6 +28,7 @@ Map<String, dynamic> _$$MovieImplToJson(_$MovieImpl instance) =>
       'title': instance.title,
       'overview': instance.overview,
       'poster_path': instance.posterPath,
+      'backdrop_path': instance.backdropPath,
       'vote_average': instance.voteAverage,
       'genre_ids': instance.genreIds,
       'genres': instance.genres,

@@ -23,7 +23,9 @@ class NowShowingColumn extends StatelessWidget {
         width: 144,
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
-          onTap: () {},
+          onTap: () {
+            onTapped();
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

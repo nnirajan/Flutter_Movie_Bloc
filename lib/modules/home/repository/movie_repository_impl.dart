@@ -33,9 +33,18 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<Movie> getMovieDetail(int id) async {
     final response = await _networkClient.getRequest(path: "movie/$id");
 
-    final movieList = Movie.fromJson(response.data);
+    final movie = Movie.fromJson(response.data);
 
-    return movieList;
+    return movie;
+  }
+
+  @override
+  Future<List<Cast>> getMovieCasts(int id) async {
+    final response = await _networkClient.getRequest(path: "movie/$id/credits");
+
+    final CastResponse castResponse = CastResponse.fromJson(response.data);
+
+    return castResponse.cast;
   }
 
   @override
