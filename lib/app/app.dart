@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_bloc/modules/detail/detail_screen.dart';
 import 'package:movie_bloc/modules/home/bloc/home_bloc.dart';
 import 'package:movie_bloc/modules/home/presentation/home_screen.dart';
 import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
@@ -20,8 +19,6 @@ class App extends StatelessWidget {
             HomeBloc(movieRepository: MovieRepositoryImpl())..fetchInitial(),
         child: const HomeScreen(),
       ),
-
-      // home: DetailScreen(),
     );
   }
 }

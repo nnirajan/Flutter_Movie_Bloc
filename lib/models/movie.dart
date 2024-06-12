@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:movie_bloc/models/genre.dart';
 
@@ -23,6 +25,7 @@ class Movie with _$Movie {
     @JsonKey(name: 'genre_ids') List<int>? genreIds,
     List<Genre>? genres,
     int? runtime,
+    @JsonKey(name: 'spoken_languages') List<SpokenLanguage>? spokenLanguages,
   }) = _Movie;
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
@@ -50,4 +53,27 @@ class Movie with _$Movie {
 
     return "";
   }
+
+  String get getLanguage {
+    if (spokenLanguages != null) {
+      final languages = spokenLanguages!;
+
+      if (languages.isNotEmpty) {
+        return languages.first.englishName;
+      }
+    }
+
+    return "";
+  }
+}
+
+@freezed
+class SpokenLanguage with _$SpokenLanguage {
+  const factory SpokenLanguage({
+    required String name,
+    @JsonKey(name: 'english_name') required String englishName,
+  }) = _SpokenLanguage;
+
+  factory SpokenLanguage.fromJson(Map<String, dynamic> json) =>
+      _$SpokenLanguageFromJson(json);
 }

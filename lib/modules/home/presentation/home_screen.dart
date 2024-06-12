@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:movie_bloc/modules/detail/detail_screen.dart';
 import 'package:movie_bloc/modules/home/bloc/home_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:movie_bloc/modules/home/presentation/widgets/now_showing_column.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/popular_row.dart';
-import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
 
 class HomeScreen extends StatelessWidget {
-  // final HomeBloc _bloc = HomeBloc(movieRepository: MovieRepositoryImpl())
-  //   ..fetchInitial();
-
   const HomeScreen({super.key});
 
   @override
@@ -94,6 +89,7 @@ class HomeScreen extends StatelessWidget {
                     // We can also implement if condition as follows
                     // if (state.nowShowings.isNotEmpty) _getNowShowing(state),
 
+                    // Multiline condition adding
                     if (state.popularMovies.isNotEmpty) ...[
                       const Padding(
                         padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
@@ -112,7 +108,16 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final popularMovie = state.popularMovies[index];
 
-                          return PopularRow(popularMovie: popularMovie);
+                          return PopularRow(
+                            popularMovie: popularMovie,
+                            onTapped: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return DetailScreen(id: popularMovie.id);
+                                },
+                              ));
+                            },
+                          );
                         },
                       ),
                     ],

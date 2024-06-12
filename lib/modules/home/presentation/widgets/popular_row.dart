@@ -4,16 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_bloc/models/genre.dart';
 import 'package:movie_bloc/models/movie.dart';
 import 'package:movie_bloc/modules/home/bloc/home_bloc.dart';
-
 import 'package:movie_bloc/modules/home/presentation/widgets/genre_widget.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/rating_view.dart';
-import 'package:movie_bloc/modules/home/presentation/widgets/timer_view.dart';
 
 class PopularRow extends StatelessWidget {
   final Movie popularMovie;
 
+  final Function() onTapped;
+
   const PopularRow({
     required this.popularMovie,
+    required this.onTapped,
     super.key,
   });
 
@@ -42,7 +43,7 @@ class PopularRow extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: () {
-                  print("tapped");
+                  onTapped();
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +89,6 @@ class PopularRow extends StatelessWidget {
                               GenreWidget(genre: genre),
                           ]),
                           const SizedBox(height: 6),
-                          // const TimerView(),
                         ],
                       ),
                     ),
