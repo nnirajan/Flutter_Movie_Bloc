@@ -2,7 +2,7 @@ import 'package:movie_bloc/base/bloc/base_bloc_state.dart';
 import 'package:movie_bloc/base/bloc/base_cubit.dart';
 import 'package:movie_bloc/models/cast.dart';
 import 'package:movie_bloc/models/movie.dart';
-import 'package:movie_bloc/modules/detail/detail_bloc/detail_state.dart';
+import 'package:movie_bloc/modules/detail/bloc/detail_state.dart';
 import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
 
 class DetailCubit extends BaseCubit<DetailState> {

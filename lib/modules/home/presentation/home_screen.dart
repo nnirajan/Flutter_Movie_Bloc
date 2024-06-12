@@ -52,14 +52,27 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (state.nowShowings.isNotEmpty) ...[
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
-                        child: Text(
-                          "Now Showing",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 6, 6, 10),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Now Showing",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                "See More",
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(
@@ -91,14 +104,26 @@ class HomeScreen extends StatelessWidget {
 
                     // Multiline condition adding
                     if (state.popularMovies.isNotEmpty) ...[
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
-                        child: Text(
-                          "Popular",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 6, 6, 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Popular",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                "See More",
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       ListView.builder(
