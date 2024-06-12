@@ -66,6 +66,7 @@ part 'home_state.dart';
 //   }
 // }
 
+// This is Cubit, donot confuse with Bloc
 class HomeBloc extends Cubit<HomeState> {
   final MovieRepository _movieRepository;
 

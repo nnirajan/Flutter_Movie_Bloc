@@ -1,21 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_bloc/models/genre.dart';
 import 'package:movie_bloc/models/movie.dart';
 import 'package:movie_bloc/modules/home/bloc/home_bloc.dart';
-
 import 'package:movie_bloc/modules/home/presentation/widgets/genre_widget.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/rating_view.dart';
-import 'package:movie_bloc/modules/home/presentation/widgets/timer_view.dart';
 
 class PopularRow extends StatelessWidget {
   final Movie popularMovie;
 
-  final List<Genre> genres;
+  final Function() onTapped;
 
   const PopularRow({
     required this.popularMovie,
-    required this.genres,
+    required this.onTapped,
     super.key,
   });
 
@@ -27,14 +26,7 @@ class PopularRow extends StatelessWidget {
 
         if (popularMovie.genreIds != null) {
           for (var id in popularMovie.genreIds!) {
-            // final value = state.genres.map((genre) {
-            //   if (genre.id == id) return genre;
-            //   // return genres;
-            // }).toList();
-
-            // final value = state.genres.firstWhere((genre) => genre.id == id);
-
-            final value = genres.firstWhere((genre) => genre.id == id);
+            final value = state.genres.firstWhere((genre) => genre.id == id);
 
             if (selectedGenres.length < 3) {
               selectedGenres.add(value);
@@ -51,22 +43,34 @@ class PopularRow extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: () {
-                  print("tapped");
+                  onTapped();
                 },
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.grey,
+                    SizedBox(
+                      height: 120,
+                      // width: 86,
+                      child: ClipRRect(
+                        clipBehavior: Clip.hardEdge,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "https://image.tmdb.org/t/p/w500/${popularMovie.posterPath}",
+                          placeholder: (context, url) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                        ),
                       ),
-                      width: 86,
                     ),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             maxLines: 2,
@@ -85,7 +89,6 @@ class PopularRow extends StatelessWidget {
                               GenreWidget(genre: genre),
                           ]),
                           const SizedBox(height: 6),
-                          const TimerView(),
                         ],
                       ),
                     ),

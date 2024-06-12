@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_bloc/models/movie.dart';
 
@@ -22,17 +23,28 @@ class NowShowingColumn extends StatelessWidget {
         width: 144,
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
-          onTap: () {},
+          onTap: () {
+            onTapped();
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                width: double.infinity,
+              SizedBox(
                 height: 212,
+                width: 144,
+                child: ClipRRect(
+                  clipBehavior: Clip.hardEdge,
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        "https://image.tmdb.org/t/p/w500/${nowShowing.posterPath}",
+                    placeholder: (context, url) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  ),
+                ),
               ),
               const SizedBox(height: 2),
               Text(

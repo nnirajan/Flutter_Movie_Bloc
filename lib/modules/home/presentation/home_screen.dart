@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movie_bloc/modules/detail/detail_screen.dart';
 import 'package:movie_bloc/modules/home/bloc/home_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:movie_bloc/modules/home/presentation/widgets/now_showing_column.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/popular_row.dart';
-import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
 
 class HomeScreen extends StatelessWidget {
-  final HomeBloc _bloc = HomeBloc(movieRepository: MovieRepositoryImpl())
-    ..fetchInitial();
-
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             showDialog(context: context, builder: (context) => alert);
           }
         },
-        bloc: _bloc,
+        // bloc: _bloc,
         builder: (context, state) {
           if (state.isLoading) {
             return const Center(
@@ -47,7 +43,8 @@ class HomeScreen extends StatelessWidget {
           } else {
             return RefreshIndicator(
               onRefresh: () async {
-                _bloc.fetchInitial();
+                // _bloc.fetchInitial();
+                context.read<HomeBloc>().fetchInitial();
               },
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -76,7 +73,13 @@ class HomeScreen extends StatelessWidget {
 
                             return NowShowingColumn(
                               nowShowing: nowShowing,
-                              onTapped: () {},
+                              onTapped: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return DetailScreen(id: nowShowing.id);
+                                  },
+                                ));
+                              },
                             );
                           },
                         ),
@@ -86,6 +89,7 @@ class HomeScreen extends StatelessWidget {
                     // We can also implement if condition as follows
                     // if (state.nowShowings.isNotEmpty) _getNowShowing(state),
 
+                    // Multiline condition adding
                     if (state.popularMovies.isNotEmpty) ...[
                       const Padding(
                         padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
@@ -106,7 +110,13 @@ class HomeScreen extends StatelessWidget {
 
                           return PopularRow(
                             popularMovie: popularMovie,
-                            genres: state.genres,
+                            onTapped: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return DetailScreen(id: popularMovie.id);
+                                },
+                              ));
+                            },
                           );
                         },
                       ),

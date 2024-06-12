@@ -15,8 +15,9 @@ class App extends StatelessWidget {
       //   scaffoldBackgroundColor: Colours.scaffoldBgColor,
       // ),
       home: BlocProvider(
-        create: (context) => HomeBloc(movieRepository: MovieRepositoryImpl()),
-        child: HomeScreen(),
+        create: (context) =>
+            HomeBloc(movieRepository: MovieRepositoryImpl())..fetchInitial(),
+        child: const HomeScreen(),
       ),
     );
   }

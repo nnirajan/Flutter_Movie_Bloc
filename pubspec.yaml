@@ -55,6 +55,7 @@ dependencies:
 
   # utils
   # carousel_slider: ^4.2.1 -> this is not needed
+  cached_network_image: ^3.3.1
   equatable: ^2.0.5
   logger: ^2.3.0
   uuid: ^4.4.0
