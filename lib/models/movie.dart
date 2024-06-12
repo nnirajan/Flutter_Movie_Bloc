@@ -9,6 +9,10 @@ part 'movie.g.dart';
 
 @freezed
 class Movie with _$Movie {
+  // Added constructor. Must not have any parameter
+  // for getters and methods to be added
+  const Movie._();
+
   const factory Movie({
     required int id,
     required String title,
@@ -18,8 +22,32 @@ class Movie with _$Movie {
     @JsonKey(name: 'vote_average') required double voteAverage,
     @JsonKey(name: 'genre_ids') List<int>? genreIds,
     List<Genre>? genres,
-    String? runTime,
+    int? runtime,
   }) = _Movie;
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
+
+  // getter method
+  // get the lenght of the movie
+  String get getLength {
+    if (runtime != null) {
+      final value = runtime!;
+
+      int h, m;
+
+      h = value ~/ 60;
+
+      m = value % 60;
+
+      String hourLeft = h.toString();
+
+      String minuteLeft = m.toString().length < 2 ? "0$m" : m.toString();
+
+      String result = "${hourLeft}h ${minuteLeft}min";
+
+      return result;
+    }
+
+    return "";
+  }
 }

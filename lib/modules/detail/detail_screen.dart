@@ -1,10 +1,9 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:movie_bloc/base/bloc/base_bloc_state.dart';
-
 import 'package:movie_bloc/modules/detail/detail_bloc/detail_cubit.dart';
 import 'package:movie_bloc/modules/detail/detail_bloc/detail_state.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/genre_widget.dart';
@@ -70,8 +69,7 @@ class DetailScreen extends StatelessWidget {
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   imageUrl:
-                      // "https://image.tmdb.org/t/p/original/${movie.backdropPath}",
-                      "https://image.tmdb.org/t/p/original/${movie.posterPath}",
+                      "https://image.tmdb.org/t/p/original/${movie.backdropPath}",
                   placeholder: (context, url) {
                     return const Center(
                       child: SizedBox(
@@ -86,24 +84,22 @@ class DetailScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 280),
+                  const SizedBox(height: 280),
                   Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        // border: Border.all(
-                        //   style: BorderStyle.solid,
-                        // ),
-                        color: Colors.white),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      color: Colors.white,
+                    ),
                     child: Padding(
                       padding: EdgeInsets.all(24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             // crossAxisAlignment: CrossAxisAlignment.start,
                             // textBaseline: TextBaseline.alphabetic,
                             children: [
@@ -118,13 +114,13 @@ class DetailScreen extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {},
-                                icon: Icon(Icons.bookmark_border_sharp),
+                                icon: const Icon(Icons.bookmark_border_sharp),
                               )
                             ],
                           ),
-                          SizedBox(height: 6),
+                          const SizedBox(height: 6),
                           RatingView(rating: movie.voteAverage),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 10),
                           if (movie.genres != null)
                             Row(
                               children: [
@@ -132,32 +128,30 @@ class DetailScreen extends StatelessWidget {
                                   GenreWidget(genre: genre),
                               ],
                             ),
-                          SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          const SizedBox(height: 10),
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              return Row(
+                                // mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Length"),
-                                  Text('2h 28min'),
+                                  _getMovieDetail(
+                                    title: "Length",
+                                    subTitle: movie.getLength,
+                                    width: constraints.maxWidth / 3,
+                                  ),
+                                  _getMovieDetail(
+                                    title: "Language",
+                                    subTitle: "subTitle",
+                                    width: constraints.maxWidth / 3,
+                                  ),
+                                  _getMovieDetail(
+                                    title: "Rating",
+                                    subTitle: "subTitle",
+                                    width: constraints.maxWidth / 3,
+                                  ),
                                 ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Length"),
-                                  Text('2h 28min'),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Length"),
-                                  Text('2h 28min'),
-                                ],
-                              )
-                            ],
+                              );
+                            },
                           ),
                           SizedBox(height: 6),
                           Text(
@@ -222,6 +216,24 @@ class DetailScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _getMovieDetail({
+    required String title,
+    required String subTitle,
+    required double width,
+  }) {
+    return SizedBox(
+      width: width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title),
+          const SizedBox(height: 2),
+          Text(subTitle),
+        ],
+      ),
     );
   }
 }
