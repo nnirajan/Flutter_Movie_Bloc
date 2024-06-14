@@ -52,8 +52,6 @@ class MovieListCubit extends BaseCubit<MovieListState> {
       ++_page;
     }
 
-    print("uoip: $_page");
-
     switch (_movieType) {
       case MovieType.nowShowings:
         _getNowShowings();

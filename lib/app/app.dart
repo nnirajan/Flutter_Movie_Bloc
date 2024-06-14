@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_bloc/modules/home/bloc/home_bloc.dart';
 import 'package:movie_bloc/modules/home/presentation/home_screen.dart';
 import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
-import 'package:movie_bloc/modules/movie_list/movie_list_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
