@@ -1,8 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movie_bloc/models/cast.dart';
-import 'package:movie_bloc/models/movie.dart';
-
-part 'detail_state.freezed.dart';
+part of 'detail_cubit.dart';
 
 @freezed
 class DetailState with _$DetailState {

@@ -4,6 +4,8 @@ import 'package:movie_bloc/modules/home/bloc/home_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/now_showing_column.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/popular_row.dart';
+import 'package:movie_bloc/modules/movie_list/bloc/movie_list_cubit.dart';
+import 'package:movie_bloc/modules/movie_list/movie_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -66,7 +68,15 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return const MovieListScreen(
+                                      movieType: MovieType.nowShowings,
+                                    );
+                                  },
+                                ));
+                              },
                               child: const Text(
                                 "See More",
                                 style: TextStyle(fontSize: 10),
@@ -117,7 +127,15 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return const MovieListScreen(
+                                      movieType: MovieType.popular,
+                                    );
+                                  },
+                                ));
+                              },
                               child: const Text(
                                 "See More",
                                 style: TextStyle(fontSize: 10),
@@ -134,7 +152,7 @@ class HomeScreen extends StatelessWidget {
                           final popularMovie = state.popularMovies[index];
 
                           return PopularRow(
-                            popularMovie: popularMovie,
+                            movie: popularMovie,
                             onTapped: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) {

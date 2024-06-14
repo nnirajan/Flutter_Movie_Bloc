@@ -8,12 +8,12 @@ import 'package:movie_bloc/modules/home/presentation/widgets/genre_widget.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/rating_view.dart';
 
 class PopularRow extends StatelessWidget {
-  final Movie popularMovie;
+  final Movie movie;
 
   final Function() onTapped;
 
   const PopularRow({
-    required this.popularMovie,
+    required this.movie,
     required this.onTapped,
     super.key,
   });
@@ -24,8 +24,8 @@ class PopularRow extends StatelessWidget {
       builder: (context, state) {
         List<Genre> selectedGenres = [];
 
-        if (popularMovie.genreIds != null) {
-          for (var id in popularMovie.genreIds!) {
+        if (movie.genreIds != null) {
+          for (var id in movie.genreIds!) {
             final value = state.genres.firstWhere((genre) => genre.id == id);
 
             if (selectedGenres.length < 3) {
@@ -57,7 +57,7 @@ class PopularRow extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(8)),
                         child: CachedNetworkImage(
                           imageUrl:
-                              "https://image.tmdb.org/t/p/w500/${popularMovie.posterPath}",
+                              "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                           placeholder: (context, url) {
                             return const Center(
                               child: CircularProgressIndicator(),
@@ -74,7 +74,7 @@ class PopularRow extends StatelessWidget {
                         children: [
                           Text(
                             maxLines: 2,
-                            popularMovie.title,
+                            movie.title,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -82,7 +82,7 @@ class PopularRow extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 6),
-                          RatingView(rating: popularMovie.voteAverage),
+                          RatingView(rating: movie.voteAverage),
                           const SizedBox(height: 6),
                           Row(children: [
                             for (var genre in selectedGenres)

@@ -1,5 +1,6 @@
 import 'package:movie_bloc/base/bloc/base_bloc_state.dart';
 import 'package:movie_bloc/base/bloc/base_cubit.dart';
+import 'package:movie_bloc/models/movie.dart';
 import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
 import 'package:movie_bloc/modules/movie_list/bloc/movie_list_state.dart';
 
@@ -15,26 +16,48 @@ class MovieListCubit extends BaseCubit<MovieListState> {
 
   int _page = 1;
 
+  List<Movie> _movies = [];
+
+  bool _hasReachedMax = false;
+
   MovieListCubit({
     required MovieRepository movieRepository,
     MovieType movieType = MovieType.nowShowings,
   })  : _movieRepository = movieRepository,
         _movieType = movieType,
-        super(const BaseBlocState.init());
+        super(const BaseBlocState.initial());
 
-  void getMovieList({bool fetchInitialData = true}) {
-    // MovieListState.hasReachedMax ;
+  Future<void> getMovieList({
+    bool fetchInitialData = true,
+    bool refreshData = false,
+  }) async {
+    state.whenOrNull(
+      loading: () {
+        return;
+      },
+      loaded: (data) {
+        if (data.hasReachedMax) {
+          return;
+        }
+      },
+    );
 
     if (fetchInitialData) {
       emit(const BaseBlocState.loading());
+
       _page = 1;
+
+      _movies = [];
     } else {
       ++_page;
     }
 
+    print("uoip: $_page");
+
     switch (_movieType) {
       case MovieType.nowShowings:
         _getNowShowings();
+
       case MovieType.popular:
         _getPopularMovies();
     }
@@ -44,18 +67,36 @@ class MovieListCubit extends BaseCubit<MovieListState> {
     try {
       final nowPlayings = await _movieRepository.getNowShowings(_page);
 
-      final movies = nowPlayings.results;
+      _movies += nowPlayings.results;
 
-      // BaseBlocState.next(MovieListState.copyWith)
+      _hasReachedMax = !(_movies.length < nowPlayings.totalResults);
 
-      emit(BaseBlocState.next(
-          MovieListState.moviesObtained(movies: movies, hasReachedMax: false)));
+      _moviesObtained();
     } catch (error) {
       emit(BaseBlocState.error(Exception(error.toString())));
     }
   }
 
   void _getPopularMovies() async {
-    // final nowPlayings = await _movieRepository.getNowShowings(_page);
+    try {
+      final popularMovies = await _movieRepository.getPopularMovies(_page);
+
+      _movies += popularMovies.results;
+
+      _hasReachedMax = !(_movies.length < popularMovies.totalResults);
+
+      _moviesObtained();
+    } catch (error) {
+      emit(BaseBlocState.error(Exception(error.toString())));
+    }
+  }
+
+  void _moviesObtained() {
+    emit(BaseBlocState.loaded(
+      MovieListState.moviesObtained(
+        movies: _movies,
+        hasReachedMax: _hasReachedMax,
+      ),
+    ));
   }
 }

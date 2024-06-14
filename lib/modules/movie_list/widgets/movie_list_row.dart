@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_bloc/models/movie.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/genre_widget.dart';
@@ -32,19 +33,26 @@ class ListRow extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 120,
-                  // width: 86,
+                  width: 86,
                   child: ClipRRect(
                     clipBehavior: Clip.hardEdge,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    // child: CachedNetworkImage(
-                    //   imageUrl:
-                    //       "https://image.tmdb.org/t/p/w500/${popularMovie.posterPath}",
-                    //   placeholder: (context, url) {
-                    //     return const Center(
-                    //       child: CircularProgressIndicator(),
-                    //     );
-                    //   },
-                    // ),
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                      placeholder: (context, url) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                      errorWidget: (context, url, error) {
+                        return Center(
+                          child: SizedBox(
+                            child: Image.asset('assets/images/default.png'),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(width: 6),

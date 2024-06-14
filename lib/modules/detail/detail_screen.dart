@@ -1,12 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_bloc/base/bloc/base_bloc_state.dart';
 import 'package:movie_bloc/models/cast.dart';
 import 'package:movie_bloc/modules/detail/bloc/detail_cubit.dart';
-import 'package:movie_bloc/modules/detail/bloc/detail_state.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/genre_widget.dart';
 import 'package:movie_bloc/modules/home/presentation/widgets/rating_view.dart';
 import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
@@ -15,8 +12,8 @@ class DetailScreen extends StatelessWidget {
   final int id;
 
   const DetailScreen({
-    required this.id,
     super.key,
+    required this.id,
   });
 
   @override
@@ -25,34 +22,50 @@ class DetailScreen extends StatelessWidget {
       create: (context) {
         return DetailCubit(movieRepository: MovieRepositoryImpl());
       },
-      child: Scaffold(
-        body: RefreshIndicator(
-          onRefresh: () async {
-            context.read<DetailCubit>().fetchInitialData(id: id);
-            return;
+      child: DetailScreenScaffold(id: id),
+    );
+  }
+}
+
+class DetailScreenScaffold extends StatelessWidget {
+  final int id;
+
+  const DetailScreenScaffold({
+    required this.id,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<DetailCubit>().fetchInitialData(id: id);
+          return;
+        },
+        child: BlocBuilder<DetailCubit, BaseBlocState<DetailState>>(
+          builder: (context, state) {
+            return state.when(
+              initial: () {
+                context.read<DetailCubit>().fetchInitialData(id: id);
+                return const SizedBox.shrink();
+              },
+              loading: () {
+                return const Center(child: CircularProgressIndicator());
+              },
+              loaded: (pageState) {
+                return _showMovieDetail(
+                  pageState: pageState,
+                  context: context,
+                );
+              },
+              error: (error) {
+                return Center(
+                  child: Text("Something went wrong: ${error.toString()}"),
+                );
+              },
+            );
           },
-          child: BlocBuilder<DetailCubit, BaseBlocState<DetailState>>(
-            builder: (context, state) {
-              return state.when(
-                init: () {
-                  context.read<DetailCubit>().fetchInitialData(id: id);
-                  return const SizedBox.shrink();
-                },
-                loading: () {
-                  return const Center(child: CircularProgressIndicator());
-                },
-                next: (pageState) {
-                  return _showMovieDetail(
-                      pageState: pageState, context: context);
-                },
-                error: (error) {
-                  return Center(
-                    child: Text("Something went wrong: ${error.toString()}"),
-                  );
-                },
-              );
-            },
-          ),
         ),
       ),
     );
@@ -83,6 +96,13 @@ class DetailScreen extends StatelessWidget {
                             height: 50,
                             width: 50,
                             child: CircularProgressIndicator(),
+                          ),
+                        );
+                      },
+                      errorWidget: (context, url, error) {
+                        return Center(
+                          child: SizedBox(
+                            child: Image.asset('assets/images/default.png'),
                           ),
                         );
                       },

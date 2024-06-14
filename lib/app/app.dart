@@ -15,12 +15,11 @@ class App extends StatelessWidget {
       // theme: ThemeData.dark().copyWith(
       //   scaffoldBackgroundColor: Colours.scaffoldBgColor,
       // ),
-      // home: BlocProvider(
-      //   create: (context) =>
-      //       HomeBloc(movieRepository: MovieRepositoryImpl())..fetchInitial(),
-      //   child: const HomeScreen(),
-      // ),
-      home: MovieList(),
+      home: BlocProvider(
+        create: (context) =>
+            HomeBloc(movieRepository: MovieRepositoryImpl())..fetchInitial(),
+        child: const HomeScreen(),
+      ),
     );
   }
 }

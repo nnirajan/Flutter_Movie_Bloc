@@ -1,9 +1,12 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:movie_bloc/base/bloc/base_bloc_state.dart';
 import 'package:movie_bloc/base/bloc/base_cubit.dart';
 import 'package:movie_bloc/models/cast.dart';
 import 'package:movie_bloc/models/movie.dart';
-import 'package:movie_bloc/modules/detail/bloc/detail_state.dart';
 import 'package:movie_bloc/modules/home/repository/movie_repository.dart';
+
+part 'detail_state.dart';
+part 'detail_cubit.freezed.dart';
 
 class DetailCubit extends BaseCubit<DetailState> {
   final MovieRepository _movieRepository;
@@ -13,7 +16,7 @@ class DetailCubit extends BaseCubit<DetailState> {
 
   DetailCubit({required MovieRepository movieRepository})
       : _movieRepository = movieRepository,
-        super(const BaseBlocState.init());
+        super(const BaseBlocState.initial());
 
   void fetchInitialData({required int id}) async {
     emit(const BaseBlocState.loading());
@@ -31,7 +34,7 @@ class DetailCubit extends BaseCubit<DetailState> {
 
       _casts = results[1];
 
-      emit(BaseBlocState.next(
+      emit(BaseBlocState.loaded(
         DetailState.movieDetailLoaded(movie: _movie, casts: _casts),
       ));
     } catch (error) {
