@@ -37,7 +37,7 @@ class NowShowingColumn extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                   child: CachedNetworkImage(
                     imageUrl:
-                        "https://image.tmdb.org/t/p/w500/${nowShowing.posterPath}",
+                        "https://image.tmdb.org/t/p/w500${nowShowing.posterPath}",
                     placeholder: (context, url) {
                       return const Center(
                         child: CircularProgressIndicator(),

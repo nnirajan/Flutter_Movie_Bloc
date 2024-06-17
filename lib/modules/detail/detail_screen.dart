@@ -89,7 +89,7 @@ class DetailScreenScaffold extends StatelessWidget {
                     child: CachedNetworkImage(
                       fit: BoxFit.cover,
                       imageUrl:
-                          "https://image.tmdb.org/t/p/w500/${movie.backdropPath}",
+                          "https://image.tmdb.org/t/p/w500${movie.backdropPath}",
                       placeholder: (context, url) {
                         return const Center(
                           child: SizedBox(
@@ -244,26 +244,28 @@ class DetailScreenScaffold extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 12),
-                          const Text(
-                            "Cast",
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                          if (casts.isNotEmpty) ...[
+                            const Text(
+                              "Cast",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 110,
-                            child: ListView.builder(
-                              shrinkWrap: false,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: casts.length,
-                              itemBuilder: (context, index) {
-                                final cast = casts[index];
+                            SizedBox(
+                              height: 110,
+                              child: ListView.builder(
+                                shrinkWrap: false,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: casts.length,
+                                itemBuilder: (context, index) {
+                                  final cast = casts[index];
 
-                                return _getCastColumn(cast: cast);
-                              },
+                                  return _getCastColumn(cast: cast);
+                                },
+                              ),
                             ),
-                          ),
+                          ],
                         ],
                       ),
                     ),
@@ -311,7 +313,7 @@ class DetailScreenScaffold extends StatelessWidget {
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   imageUrl:
-                      "https://image.tmdb.org/t/p/w300/${cast.profilePath}",
+                      "https://image.tmdb.org/t/p/w300${cast.profilePath}",
                   placeholder: (context, url) {
                     return const Center(
                       child: SizedBox(
